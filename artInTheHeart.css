@@ -1,0 +1,118 @@
+body{
+    font-family: "Open Sans";
+    text-transform: uppercase;
+    /* font-weight: bold; */
+
+}
+
+.header{
+    text-align: center;
+    height: auto;
+    background: white;
+    padding: 20px;
+    /* position: fixed; */
+}
+
+.logo{
+  height:200px;
+  width: auto;
+
+}
+
+.smallHeader{
+    height: auto;
+    background: white;
+    text-align: center;
+}
+.smallHeader .logo{
+    height: 100px;
+    width: auto;
+    margin:5px;
+}
+
+
+span {
+    display: block;
+    content: " ";
+    height: 240px;
+    margin-top: -240px;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.leaderBoard {
+    display: flex;
+    flex-direction: column;
+    width:auto;
+    /* justify-content: space-around; */
+    background-color: #26aae1;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    min-height: 350px;
+    padding: 10px;
+    overflow: hidden;
+    border: black 5px solid;
+    border-radius: 5px;
+    margin: 1.5em;
+}
+
+.title{
+  display: flex;
+  align-items: flex-start;
+  font-weight: bold;
+}
+
+.carousel{
+  margin: 10px;
+  width: auto;
+  display: flex;
+  
+}
+
+
+
+.entry{
+    text-align: center;
+    margin-top:10px;
+}
+
+.hp
+{
+    border:hotpink 2px solid;
+}
+
+h3{
+    text-align: center;
+}
+
+a:hover
+{
+    border: #26aae1 2px solid;
+}
+#theRules {
+    width: 100%;
+}
+.howTo{
+    max-width:80%;
+    margin:5px;
+
+}
+
+
+/* CSS for rules page  */
+.rules{
+    display: flex;
+    flex-direction: column;
+}
+.pRules{
+    max-width: 85%;
+    align-self: center;
+    word-wrap: normal;
+    margin:.75em;
+}
+.button{
+    justify-content: center;
+    background-color:#26aae1;
+}
+
