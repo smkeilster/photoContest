@@ -4,7 +4,7 @@ let xhr = new XMLHttpRequest();
 
 //get function from the database
 function getSelfies() {
-    xhr.open('GET', "http://selfieproject.azurewebsites.net/api/selfie", true);
+    xhr.open('GET', "https://selfieproject.azurewebsites.net/api/selfie", true);
     xhr.send();
     xhr.addEventListener("readystatechange", processRequest, false);
 }
