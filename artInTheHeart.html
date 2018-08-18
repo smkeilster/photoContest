@@ -20,8 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="artInTheHeart.js" defer></script>
-    <title>Photo Booth</title>
+    <script src="artInTheHeartTestSorted.js" defer></script>
+    <title>Selfie Carousel</title>
 </head>
 
 <body>
@@ -29,37 +29,81 @@
     <header class="fixed-top">
         <div id="header" class="header">
             <img class="logo" src="https://theclubhou.se/wp-content/uploads/2017/04/theclubhouselogo-1.png">
+        <div class="hidden"> <h4> Text the photo ID to<b style="white-space: nowrap;"> 706-434-8713 </b> to vote. </h4></div>
         </div>
     </header>
 
     <!-- accomodates clubhouse logo -->
-    <div style="margin-top:240px">
+    <div style="margin-top:200px">
     </div>
     <span id="pageTop"></span>
-    <h3>2018 Arts in the Heart Photo Contest</h3>
+    <h1>2018 Arts in the Heart Selfie Contest</h1>
+    <div id="other" class="center"> <h4> Text the photo ID to<b style="white-space: nowrap;"> 706-434-8713 </b> to vote. </h4></div>
     <section id="theLeaders">
         <div id="leaderBoard" class="leaderBoard container-fluid">
             <div class="title"><h2> The Leaders</h2></div>
-            <div class="row" id="carousel"> </div>
+            <div class="row" >
+                <div class="carousel-slide">
+                    <div id="carousel" class="carousel-inner">
+                    <!-- Controls -->
+                        <div class="left carousel-control">
+                            <a href="#carousel" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </div>
+                        <div class="right carousel-control">
+                            <a href="#carousel" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>    
+                </div>
+            </div>
         </div>
     </section>
     <section id="theRules">
         <h3>How to participate:</h3>
         <div class="d-flex justify-content-center">
-        <ol class="howTo">
+        <ol class="textBlock">
             <li> Stop by the Clubhou.se booth at Arts in the Heart to take a photo</li>
-            <li> Text the photo ID to xxx-xxx-xxxx to vote for your favorite photo</li>
+            <li> Text the photo ID to 706-434-8713 to vote for your favorite photo</li>
             <li> Share your photo on Facebook, Twitter and Instagram</li>
-            <li> A month of free membership at the Clubhou.se will be awarded to the people who submitted the 3 photos with the highest number of votes at the end of the festival</li>
-            <a href="rules.html">Official Rules </a>
+            <li> Prizes will be awarded to the 5 photos with the highest number of votes at the end of the festival</li>
+            <a  href="rules.html">Official Rules </a>
         </ol>
+        </div>
+        <h3>Prizes: </h3>
+        <div class="d-flex justify-content-center">
+        <ul class="textBlock">
+            <li> First place: one month of membership to the Clubhou.se</li>
+            <li> The leaders: a day pass to the Clubhou.se</li>
+        </ul>
         </div>
     </section>
     <section id="theGallery">
         <h3> Gallery</h3>
+        <select id="project" onchange="project()">
+            <option value="project1">Project 1
+            <option value="project2">Project 2
+            <option value="project3">Project 3
+            <option value="project4">Project 4
+        </select>
+        <select id="date" onchange="date()">
+                <option value="friday">Friday
+                <option value="saturday">Saturday
+                <option value="sunday">Sunday
+        </select>
+        <select id="sort" onchange="sortBy()">
+            <option>
+            <option value="votes"> Most Votes
+            <option value="dateTaken"> Most Recent
+        </select>
         <div id="allPhotos" class="container-fluid">
             <div class="row" id="gallery"> </div>
         </div>
     </section>
+
 </body>
 </html>
