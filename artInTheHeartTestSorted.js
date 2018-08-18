@@ -235,10 +235,11 @@ function sortBy(){
   if (x == "votes"){
     const mostVotes = gEntries.sort((a,b) => b.voteTotal-a.voteTotal);
     buildGallery(mostVotes);
+    console.log(mostVotes);
     }
   else {
     const mostRecent = gEntries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
     buildGallery(mostRecent);
   }
-}};
+};
 buildGallery(gEntries);
