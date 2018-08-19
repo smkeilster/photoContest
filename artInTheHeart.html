@@ -20,7 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-    <script src="artInTheHeartTestSorted.js" defer></script>
+    <script src="artInTheHeart.js" defer></script>
     <title>Selfie Carousel</title>
 </head>
 
@@ -43,9 +43,8 @@
         <div id="leaderBoard" class="leaderBoard container-fluid">
             <div class="title"><h2> The Leaders</h2></div>
             <div class="row" >
-                <div class="carousel-slide">
-                    <div id="carousel" class="carousel-inner">
-                    <!-- Controls -->
+                    <div id="carousel" class="carousel">
+                    <!-- Controls
                         <div class="left carousel-control">
                             <a href="#carousel" role="button" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -57,9 +56,8 @@
                                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </a>
-                        </div>
-                    </div>    
-                </div>
+                        </div> -->
+                    </div>
             </div>
         </div>
     </section>
@@ -84,24 +82,37 @@
     </section>
     <section id="theGallery">
         <h3> Gallery</h3>
-        <select id="project" onchange="project()">
-            <option value="project1">Project 1
-            <option value="project2">Project 2
-            <option value="project3">Project 3
-            <option value="project4">Project 4
-        </select>
-        <select id="date" onchange="date()">
-                <option value="friday">Friday
-                <option value="saturday">Saturday
-                <option value="sunday">Sunday
-        </select>
-        <select id="sort" onchange="sortBy()">
-            <option value="dateTaken"> Most Recent
-            <option value="votes"> Most Votes
-            
-        </select>
+        <div class="filters">
+            <div class="option">
+                <select id="project" onchange="project()">
+                    <option>Filter by Project
+                    <option value="project1">Project 1
+                    <option value="project2">Project 2
+                    <option value="project3">Project 3
+                    <option value="project4">Project 4
+                </select>
+            </div>
+            <div class="option">
+                <select id="date" onchange="date()">
+                    <option >Filter by Day
+                    <option value="friday">Friday
+                    <option value="saturday">Saturday
+                    <option value="sunday">Sunday
+                </select>
+            </div>
+            <div class="option">
+                <select id="sort" onchange="sortBy()">
+                    <option> Sort by:
+                    <option value="dateTaken"> Most Recent
+                    <option value="votes"> Most Votes
+                </select>
+            </div>  
+        </div>    
         <div id="allPhotos" class="container-fluid">
             <div class="row" id="gallery"> </div>
+            <div>
+
+            </div>
         </div>
     </section>
 
