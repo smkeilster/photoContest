@@ -19,34 +19,44 @@ function processRequest(e) {
     }
 }
 
-// function project(){
-
-// };
-
-// function date(){
-
-// };
-
 function buildArrays(entries){
+    // sort by function
     let mostVotes = entries.sort((a,b) => b.voteTotal-a.voteTotal);
     let mostRecent = entries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
+    // project filters
+    let projectOne = entries.filter(entries => {
+        return entries.selfieId[0]==="A";
+    });
+    let projectTwo = entries.filter(entries => {
+        return entries.selfieId[0]==="B";
+    });
+    let projectThree = entries.filter(entries => {
+        return entries.selfieId[0]==="C";
+    });
+    let projectFour = entries.filter(entries => {
+        return entries.selfieId[0]==="D";
+    });
+    // date filters
+    let friday = entries.filter(entries => {
+        return entries.dateTaken[9]==="4";
+    });
+    let saturday = entries.filter(entries => {
+        return entries.dateTaken[9]==="5";
+    });
+    let sunday = entries.filter(entries => {
+        return entries.dateTaken[9]==="8";
+    });
+
 }
    
 function sortBy(){
     var x = document.getElementById("sort").value;
     console.log(x);
-    if(x=="votes"){
-           
+    if(x=="mostVotes"){      
     document.getElementById("gallery").innerHTML="";
     buildGallery(mostVotes)
     }
 }
-
-
-
-
-
-
 
 // builds the leaderboard for top 5 votes
 function buildLeaderboard(entries) {
@@ -63,7 +73,12 @@ function buildLeaderboard(entries) {
         // assigns id for the entry
         entry.id = entryId;
         //assigns bootstrap css
-        entry.className= "entry col-md-4";
+        if (i  == 0) {
+            entry.className = "entry carousel-item active";
+        }
+        else {
+            entry.className = "entry carousel-item";
+        }
         // builds div within existing "carousel" in the html
         document.getElementById("carousel").append(entry);
         // creates image
@@ -71,7 +86,7 @@ function buildLeaderboard(entries) {
         // pulls in the image URL from the database
         image.src = entries[i].imageThumbnailUrl;
         // adds bootstrap css to img
-        image.className = "img-thumbnail imgSize";
+        image.className = "img-thumbnail imgSize d-block w-100";
         // adds the image to the entry div
         entry.appendChild(image);
         // pulls in the photo id from the database
@@ -160,7 +175,7 @@ function shrinkHeader(){
     }
 };
 
+// carousel javascript
 
-
-  
+    
 getSelfies()

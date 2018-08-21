@@ -132,12 +132,15 @@ a:hover
     border: black 2px solid;
     border-radius: 5px;
     text-align: center;
+    margin: 5px;
 
 }
 select{
     font-family: "Open Sans";
     text-transform: uppercase;
     color: white;
+    background-color: #26aae1;
+    border: none;
 }
 .center{
     text-align: center;
@@ -159,5 +162,4 @@ select{
     justify-content: center;
     background-color:#26aae1;
 }
-
 
