@@ -1,5 +1,13 @@
 let xhr = new XMLHttpRequest();
-
+let mostVotes;
+let mostRecent;
+let projectOne;
+let projectTwo;
+let projectThree;
+let projectFour;
+let friday;
+let saturday;
+let sunday;
 
 //get function from the database
 function getSelfies() {
@@ -18,45 +26,93 @@ function processRequest(e) {
         buildArrays(entries);
     }
 }
-
+// function to build various sort arrays
 function buildArrays(entries){
     // sort by function
-    let mostVotes = entries.sort((a,b) => b.voteTotal-a.voteTotal);
-    let mostRecent = entries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
+    mostVotes = entries.sort((a,b) => b.voteTotal-a.voteTotal);
+    console.log(mostVotes);
+    mostRecent = entries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
     // project filters
-    let projectOne = entries.filter(entries => {
+    projectOne = entries.filter(entries => {
         return entries.selfieId[0]==="A";
     });
-    let projectTwo = entries.filter(entries => {
-        return entries.selfieId[0]==="B";
+    projectTwo = entries.filter(entries => {
+        return entries.selfieId[0]==="M";
     });
-    let projectThree = entries.filter(entries => {
+    projectThree = entries.filter(entries => {
         return entries.selfieId[0]==="C";
     });
-    let projectFour = entries.filter(entries => {
+    projectFour = entries.filter(entries => {
         return entries.selfieId[0]==="D";
     });
     // date filters
-    let friday = entries.filter(entries => {
+    friday = entries.filter(entries => {
         return entries.dateTaken[9]==="4";
     });
-    let saturday = entries.filter(entries => {
+    saturday = entries.filter(entries => {
         return entries.dateTaken[9]==="5";
     });
-    let sunday = entries.filter(entries => {
+    sunday = entries.filter(entries => {
         return entries.dateTaken[9]==="8";
     });
 
 }
    
+function project(){
+    var x = document.getElementById("project").value;
+    console.log(x);
+    if(x=="projectOne"){      
+        document.getElementById("gallery").innerHTML="";
+        buildGallery(projectOne)
+    }
+    else if(x=="projectTwo"){
+        document.getElementById("gallery").innerHTML="";
+        buildGallery(projectTwo)    
+    }
+    else if(x=="projectThree"){
+        document.getElementById("gallery").innerHTML="";
+        buildGallery(projectThree) 
+    }
+    else if(x=="projectFour"){
+        document.getElementById("gallery").innerHTML="";
+        buildGallery(projectFour) 
+    }
+
+}
+
+// filter by date
+function date(){
+    var x = document.getElementById("date").value;
+    console.log(x);
+    if(x=="friday"){      
+        document.getElementById("gallery").innerHTML="";
+        buildGallery(friday)
+    }
+    else if(x=="saturday"){
+        document.getElementById("gallery").innerHTML="";
+        buildGallery(saturday)    
+    }
+    else if(x=="sunday"){
+        document.getElementById("gallery").innerHTML="";
+        buildGallery(sunday) 
+    }
+    
+
+}
+
+// sort by functions
 function sortBy(){
     var x = document.getElementById("sort").value;
-    console.log(x);
-    if(x=="mostVotes"){      
-    document.getElementById("gallery").innerHTML="";
-    buildGallery(mostVotes)
+   if(x==="dateTaken"){
+        document.getElementById("gallery").innerHTML="";
+        buildGallery(mostRecent)    
+    }
+    else if(x==="mostVotes"){
+        document.getElementById("gallery").innerHTML="";
+        buildGallery(mostVotes)
     }
 }
+
 
 // builds the leaderboard for top 5 votes
 function buildLeaderboard(entries) {
@@ -73,22 +129,27 @@ function buildLeaderboard(entries) {
         // assigns id for the entry
         entry.id = entryId;
         //assigns bootstrap css
-        if (i  == 0) {
-            entry.className = "entry carousel-item active";
+        if (i ==0) {
+            entry.className = "entry carousel-item col-md-4 active";
         }
         else {
-            entry.className = "entry carousel-item";
+            entry.className = "entry carousel-item col-md-4";
         }
         // builds div within existing "carousel" in the html
         document.getElementById("carousel").append(entry);
+        // creates div to wrap the image and photo infor
+        imageWrap=document.createElement("div");
+        // adds bootstrap
+        // imageWrap.className = "d-block col-4";
+        entry.appendChild(imageWrap);
         // creates image
         image = document.createElement("img");
         // pulls in the image URL from the database
         image.src = entries[i].imageThumbnailUrl;
         // adds bootstrap css to img
-        image.className = "img-thumbnail imgSize d-block w-100";
+        image.className = "img-fluid  mx-auto d-block";
         // adds the image to the entry div
-        entry.appendChild(image);
+        imageWrap.appendChild(image);
         // pulls in the photo id from the database
         let photoId = entries[i].selfieId;
         // creates the element for the cityState
@@ -97,7 +158,7 @@ function buildLeaderboard(entries) {
         let textnode = document.createTextNode("Photo ID: " + photoId);
         // these three lines nest the variables within the new header in the imageDiv
         ID.appendChild(textnode);
-        entry.appendChild(ID);
+        imageWrap.appendChild(ID);
         // pulls in the photo id from the database
         let votes = entries[i].voteTotal;
         // creates the element for the cityState
@@ -106,7 +167,7 @@ function buildLeaderboard(entries) {
         let textnode2 = document.createTextNode("Total Votes: " + votes);
         // these three lines nest the variables within the new header in the imageDiv
         voteTotal.appendChild(textnode2);
-        entry.appendChild(voteTotal);
+        imageWrap.appendChild(voteTotal);
     }
   };    
   
@@ -114,8 +175,8 @@ function buildLeaderboard(entries) {
 function buildGallery(entries) {
     // variables that will be used in multiple statements
     let builtGallery = [];
-    // const sortedDate = entries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
-    // console.log(sortedDate);
+    const sortedDate = entries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
+    console.log(sortedDate);
     for (var i = 0; i <entries.length; i++) {
         // creates the span using the unique anchorLink column as the id.
         entryId = entries[i].imageId;
@@ -176,6 +237,30 @@ function shrinkHeader(){
 };
 
 // carousel javascript
+$('#carouselExample').on('slide.bs.carousel', function (e) {
+    /*
 
+    CC 2.0 License Iatek LLC 2018
+    Attribution required
+    
+    */
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 3;
+    var totalItems = $('.carousel-item').length;
+    
+    if (idx >= totalItems-(itemsPerSlide-1)) {
+        var it = itemsPerSlide - (totalItems - idx);
+        for (var i=0; i<it; i++) {
+            // append slides to end
+            if (e.direction=="left") {
+                $('.carousel-item').eq(i).appendTo('.carousel-inner');
+            }
+            else {
+                $('.carousel-item').eq(0).appendTo('.carousel-inner');
+            }
+        }
+    }
+});
     
 getSelfies()
