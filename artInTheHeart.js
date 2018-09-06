@@ -1,6 +1,7 @@
 let xhr = new XMLHttpRequest();
-let mostVotes;
-let mostRecent;
+var feedback = [];
+var mostVotes = [];
+var mostRecent = [];
 let projectOne;
 let projectTwo;
 let projectThree;
@@ -8,6 +9,9 @@ let projectFour;
 let friday;
 let saturday;
 let sunday;
+let sortedVotes;
+
+
 
 //get function from the database
 function getSelfies() {
@@ -19,19 +23,28 @@ function getSelfies() {
 // returns JSON object from the database
 function processRequest(e) {
     if (xhr.readyState == 4 && xhr.status == 200) {
-        let entries = JSON.parse(xhr.responseText);
-        // console.log(entries);
-        buildLeaderboard(entries);
-        buildGallery(entries);
-        buildArrays(entries);
+        feedback = JSON.parse(xhr.responseText);
+        console.log(feedback);
+        buildLeaderboard(feedback);
+        buildGallery(feedback);
+        buildArrays(feedback);
+        buildOtherArray(feedback);
     }
 }
 // function to build various sort arrays
+function buildOtherArray(entries){
+    // sort by function
+    mostVotes = entries.sort(function(a,b){return b.voteTotal-a.voteTotal});
+    console.log(mostVotes);
+
+    // points.sort(function(a, b){return b - a});
+    // return Array.prototype.slice.call(arr).sort(); // For array-like objects
+} 
+
 function buildArrays(entries){
     // sort by function
-    mostVotes = entries.sort((a,b) => b.voteTotal-a.voteTotal);
-    console.log(mostVotes);
-    mostRecent = entries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
+    mostRecent = entries.slice().sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
+    console.log(mostRecent);   
     // project filters
     projectOne = entries.filter(entries => {
         return entries.selfieId[0]==="A";
@@ -55,26 +68,34 @@ function buildArrays(entries){
     sunday = entries.filter(entries => {
         return entries.dateTaken[9]==="8";
     });
-
 }
-   
+
+// filter by project
 function project(){
     var x = document.getElementById("project").value;
     console.log(x);
     if(x=="projectOne"){      
         document.getElementById("gallery").innerHTML="";
+        document.getElementById("date").value = "org";
+        document.getElementById("sort").value = "org";
         buildGallery(projectOne)
     }
     else if(x=="projectTwo"){
         document.getElementById("gallery").innerHTML="";
+        document.getElementById("date").value = "org";
+        document.getElementById("sort").value = "org";
         buildGallery(projectTwo)    
     }
     else if(x=="projectThree"){
         document.getElementById("gallery").innerHTML="";
+        document.getElementById("date").value = "org";
+        document.getElementById("sort").value = "org";
         buildGallery(projectThree) 
     }
     else if(x=="projectFour"){
         document.getElementById("gallery").innerHTML="";
+        document.getElementById("date").value = "org";
+        document.getElementById("sort").value = "org";
         buildGallery(projectFour) 
     }
 
@@ -86,44 +107,57 @@ function date(){
     console.log(x);
     if(x=="friday"){      
         document.getElementById("gallery").innerHTML="";
+        document.getElementById("project").value = "org";
+        document.getElementById("sort").value = "org";
         buildGallery(friday)
     }
     else if(x=="saturday"){
         document.getElementById("gallery").innerHTML="";
+        document.getElementById("project").value = "org";
+        document.getElementById("sort").value = "org";
         buildGallery(saturday)    
     }
+    
     else if(x=="sunday"){
         document.getElementById("gallery").innerHTML="";
+        document.getElementById("project").value = "org";
+        document.getElementById("sort").value = "org";
         buildGallery(sunday) 
     }
-    
+    console.log(saturday);
 
 }
 
 // sort by functions
 function sortBy(){
     var x = document.getElementById("sort").value;
+    console.log(x);
+    console.log(mostRecent);
    if(x==="dateTaken"){
         document.getElementById("gallery").innerHTML="";
+        document.getElementById("project").value = "org";
+        document.getElementById("date").value = "org";
         buildGallery(mostRecent)    
     }
     else if(x==="mostVotes"){
         document.getElementById("gallery").innerHTML="";
+        document.getElementById("project").value = "org";
+        document.getElementById("date").value = "org";
         buildGallery(mostVotes)
+        console.log(mostVotes);
     }
 }
 
 
 // builds the leaderboard for top 5 votes
-function buildLeaderboard(entries) {
+function buildLeaderboard(lEntries) {
     // variables that will be used in multiple statements
-    let builtLeaderboard = [];
-    const sortedVotes = entries.sort((a,b) => b.voteTotal-a.voteTotal);
-    console.log(sortedVotes);
-    // for loop runs through the entire json object returned by the database. #update loop length
+    sortedVotes = lEntries.sort(function(a,b){return b.voteTotal-a.voteTotal});
+    // console.log(sortedVotes);
+    // for loop runs through the entire json object returned by the database. 
     for (var i = 0; i <5; i++) {
         // creates the span using the unique anchorLink column as the id.
-        entryId = entries[i].imageId;
+        entryId = lEntries[i].imageId;
         // creates entry
         entry = document.createElement("div");
         // assigns id for the entry
@@ -145,13 +179,13 @@ function buildLeaderboard(entries) {
         // creates image
         image = document.createElement("img");
         // pulls in the image URL from the database
-        image.src = entries[i].imageThumbnailUrl;
+        image.src = lEntries[i].imageThumbnailUrl;
         // adds bootstrap css to img
         image.className = "img-fluid  mx-auto d-block";
         // adds the image to the entry div
         imageWrap.appendChild(image);
         // pulls in the photo id from the database
-        let photoId = entries[i].selfieId;
+        let photoId = lEntries[i].selfieId;
         // creates the element for the cityState
         let ID = document.createElement("h5");
         // creates the text within the element
@@ -160,7 +194,7 @@ function buildLeaderboard(entries) {
         ID.appendChild(textnode);
         imageWrap.appendChild(ID);
         // pulls in the photo id from the database
-        let votes = entries[i].voteTotal;
+        let votes = lEntries[i].voteTotal;
         // creates the element for the cityState
         let voteTotal = document.createElement("h5");
         // creates the text within the element
@@ -172,14 +206,14 @@ function buildLeaderboard(entries) {
   };    
   
 // builds the gallery for the remaining images based on most recent  
-function buildGallery(entries) {
+function buildGallery(gEntries) {
     // variables that will be used in multiple statements
     let builtGallery = [];
-    const sortedDate = entries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
-    console.log(sortedDate);
-    for (var i = 0; i <entries.length; i++) {
+    const sortedDate = gEntries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
+    // console.log(sortedDate);
+    for (var i = 0; i <gEntries.length; i++) {
         // creates the span using the unique anchorLink column as the id.
-        entryId = entries[i].imageId;
+        entryId = gEntries[i].imageId;
         // creates entry
         entry = document.createElement("div");
         // assigns id for the entry
@@ -191,29 +225,35 @@ function buildGallery(entries) {
         // creates image
         image = document.createElement("img");
         // pulls in the image URL from the database
-        image.src = entries[i].imageThumbnailUrl;
+        image.src = gEntries[i].imageThumbnailUrl;
         // adds bootstrap css to img
         image.className = "img-thumbnail imgSize";
         // adds the image to the entry div
         entry.appendChild(image);
+        // creats a div to format the photo info
+        info = document.createElement("div");
+        // adds css
+        info.className = "info";
+        // adds info div to the entry
+        entry.appendChild(info);
         // pulls in the photo id from the database
-        let photoId = entries[i].selfieId;
-        // creates the element for the cityState
+        let photoId = gEntries[i].selfieId;
+        // creates the element for the photo ID
         let ID = document.createElement("h5");
         // creates the text within the element
         let textnode = document.createTextNode("Photo ID: "+photoId);
         // these three lines nest the variables within the new header in the imageDiv
         ID.appendChild(textnode);
-        entry.appendChild(ID);
+        info.appendChild(ID);
         // pulls in the photo id from the database
-        let votes = entries[i].voteTotal;
-        // creates the element for the cityState
+        let votes = gEntries[i].voteTotal;
+        // creates the element for the voteTotal
         let voteTotal = document.createElement("h5");
         // creates the text within the element
         let textnode2 = document.createTextNode("Total Votes: "+votes);
         // these three lines nest the variables within the new header in the imageDiv
         voteTotal.appendChild(textnode2);
-        entry.appendChild(voteTotal);
+        info.appendChild(voteTotal);
     } 
 };    
   

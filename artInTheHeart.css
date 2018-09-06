@@ -14,11 +14,10 @@ body{
 .logo{
   height:150px;
   width: auto;
-
 }
+
 .hidden{
     display: none;
-
 }
 
 .smallHeader{
@@ -27,17 +26,18 @@ body{
     background: white;
     text-align: center;
 }
+
 .smallHeader .logo{
     height: 100px;
     width: auto;
     margin:5px;
 }
+
 .smallHeader .hidden{
     display: block;
     margin-top:10px;
     font-size: 1.em;
 }
-
 
 span {
     display: block;
@@ -48,7 +48,7 @@ span {
     pointer-events: none;
 }
 
-.leaderBoard {
+.blue {
     display: flex;
     flex-direction: column;
     width:auto;
@@ -65,109 +65,26 @@ span {
 }
 
 .title{
-  display: flex;
-  align-items: flex-start;
-  font-weight: bold;
+  text-align: center;
   margin:10px;
 }
 
-.carousel{
-  margin: 10px;
-  width: auto;
-  display: flex;
-  
-}
-
-.entry{
-    text-align: center;
-    margin-top:10px;
-}
-
-.hp
-{
-    border:hotpink 2px solid;
-}
-
-h3{
-    text-align: center;
-}
-h1{
-    text-align: center;
-}
-/* a:hover
-{
-    border: #26aae1 2px solid;
-} */
 #theRules {
     width: 100%;
 }
+
 .textBlock{
     max-width:80%;
     margin:10px 10px 40px 10px;
 }
 
-/* Smartphones (portrait and landscape) ----------- */
-@media (max-width: 480px) {
-
-.textBlock{
-    max-width:100%;
-}
-.filters{
-    flex-direction: column;
-    align-items: center;
-}
-.option{
-    min-width: 60%;
-
-}
-
-
-}
-/* css for the gallery */
-.filters{
-    display: flex;
-    justify-content: space-around;
-}
-.option{
-    background-color: #26aae1;
-    padding:5px;
-    border: black 2px solid;
-    border-radius: 5px;
-    text-align: center;
-    margin: 5px;
-
-}
-select{
-    font-family: "Open Sans";
-    text-transform: uppercase;
-    color: white;
-    background-color: #26aae1;
-    border: none;
-}
-.center{
-    text-align: center;
-}
-
-
-
-/* CSS for rules page  */
-.rules{
-    display: flex;
-    flex-direction: column;
-}
-.pRules{
-    max-width: 85%;
-    align-self: center;
-    word-wrap: normal;
-    margin:.75em;
-}
-.button{
-    justify-content: center;
-    background-color:#26aae1;
-}
-
-
 /* css for carousel */
+.carousel{
+  padding: 10px;
+  width: auto;
+  display: flex;
+  
+}
 #adjustment{
     width:auto;
 }
@@ -233,5 +150,103 @@ select{
         display: block;
         visibility: visible;
     }
+    .carousel-control-prev{
+        top:-50px;
 
+    }
+    .carousel-control-next{
+        top:-50px;
+
+    }
+    select{
+        width:200px;
+    }
+}
+
+.entry{
+    text-align: center;
+    margin-top:10px;
+}
+.info{
+    margin-top:10px;
+}
+
+.hp
+{
+    border:hotpink 2px solid;
+}
+
+h3{
+    text-align: center;
+}
+h1{
+    text-align: center;
+}
+
+
+/* css for the gallery */
+.filters{
+    display: flex;
+    justify-content: space-around;
+}
+
+select{
+    font-family: "Open Sans";
+    text-transform: uppercase;
+    color: #26aae1;
+    background-color: white;
+    border: black 2px solid;
+    width:165px;
+    margin: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.center{
+    text-align: center;
+}
+
+.privacy{
+    margin:10px 20px 10px 20px;
+}
+
+/* CSS for rules page  */
+.rules{
+    display: flex;
+    flex-direction: column;
+}
+.pRules{
+    max-width: 85%;
+    align-self: center;
+    word-wrap: normal;
+    margin:.75em;
+}
+.button{
+    justify-content: center;
+    background-color:#26aae1;
+}
+mark.rule{
+    color: #26aae1;
+    background: none;
+}
+
+
+/* Smartphones (portrait and landscape) ----------- */
+@media (max-width: 480px) {
+
+    .textBlock{
+        max-width:100%;
+    }
+    .filters{
+        flex-direction: column;
+        align-items: center;
+    }
+    .carousel-control-prev{
+        top:-50px;
+
+    }
+    .carousel-control-next{
+        top:-50px;
+
+    }
 }
