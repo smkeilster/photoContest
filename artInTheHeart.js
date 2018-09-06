@@ -1,7 +1,7 @@
 let xhr = new XMLHttpRequest();
-var feedback = [];
-var mostVotes = [];
-var mostRecent = [];
+let feedback;
+let mostVotes
+let mostRecent;
 let projectOne;
 let projectTwo;
 let projectThree;
@@ -10,6 +10,7 @@ let friday;
 let saturday;
 let sunday;
 let sortedVotes;
+let sortedDate;
 
 
 
@@ -24,27 +25,22 @@ function getSelfies() {
 function processRequest(e) {
     if (xhr.readyState == 4 && xhr.status == 200) {
         feedback = JSON.parse(xhr.responseText);
-        console.log(feedback);
         buildLeaderboard(feedback);
-        buildGallery(feedback);
         buildArrays(feedback);
-        buildOtherArray(feedback);
+        sortToBuild(feedback);
     }
 }
-// function to build various sort arrays
-function buildOtherArray(entries){
-    // sort by function
-    mostVotes = entries.sort(function(a,b){return b.voteTotal-a.voteTotal});
-    console.log(mostVotes);
-
-    // points.sort(function(a, b){return b - a});
-    // return Array.prototype.slice.call(arr).sort(); // For array-like objects
+// function to sort the array to build the initial gallery
+function sortToBuild(foo){
+    sortedDate = foo.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
+    buildGallery(sortedDate);
 } 
 
 function buildArrays(entries){
     // sort by function
     mostRecent = entries.slice().sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
-    console.log(mostRecent);   
+    mostVotes = entries.slice().sort(function(a,b){return b.voteTotal-a.voteTotal});
+
     // project filters
     projectOne = entries.filter(entries => {
         return entries.selfieId[0]==="A";
@@ -98,7 +94,6 @@ function project(){
         document.getElementById("sort").value = "org";
         buildGallery(projectFour) 
     }
-
 }
 
 // filter by date
@@ -125,7 +120,6 @@ function date(){
         buildGallery(sunday) 
     }
     console.log(saturday);
-
 }
 
 // sort by functions
@@ -133,18 +127,19 @@ function sortBy(){
     var x = document.getElementById("sort").value;
     console.log(x);
     console.log(mostRecent);
-   if(x==="dateTaken"){
+   if(x==="mostVotes"){
+       console.log("mostVotes");
         document.getElementById("gallery").innerHTML="";
         document.getElementById("project").value = "org";
         document.getElementById("date").value = "org";
-        buildGallery(mostRecent)    
+        buildGallery(mostVotes);    
     }
-    else if(x==="mostVotes"){
+    else if(x==="dateTaken"){
         document.getElementById("gallery").innerHTML="";
         document.getElementById("project").value = "org";
         document.getElementById("date").value = "org";
-        buildGallery(mostVotes)
-        console.log(mostVotes);
+        buildGallery(mostRecent);
+        console.log("most Recent");
     }
 }
 
@@ -153,7 +148,6 @@ function sortBy(){
 function buildLeaderboard(lEntries) {
     // variables that will be used in multiple statements
     sortedVotes = lEntries.sort(function(a,b){return b.voteTotal-a.voteTotal});
-    // console.log(sortedVotes);
     // for loop runs through the entire json object returned by the database. 
     for (var i = 0; i <5; i++) {
         // creates the span using the unique anchorLink column as the id.
@@ -208,9 +202,6 @@ function buildLeaderboard(lEntries) {
 // builds the gallery for the remaining images based on most recent  
 function buildGallery(gEntries) {
     // variables that will be used in multiple statements
-    let builtGallery = [];
-    const sortedDate = gEntries.sort((a,b) => new Date(b.dateTaken)-new Date(a.dateTaken));
-    // console.log(sortedDate);
     for (var i = 0; i <gEntries.length; i++) {
         // creates the span using the unique anchorLink column as the id.
         entryId = gEntries[i].imageId;
@@ -303,4 +294,19 @@ $('#carouselExample').on('slide.bs.carousel', function (e) {
     }
 });
     
+// scroll to top button
+$(window).scroll(function() {
+    if ($(this).scrollTop() >= 100) {        // If page is scrolled more than 50px
+        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+    } else {
+        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+    }
+});
+$('#return-to-top').click(function() {      // When arrow is clicked
+    $('body,html').animate({
+        scrollTop : 0                       // Scroll to top of body
+    }, 500);
+});
+
+
 getSelfies()
