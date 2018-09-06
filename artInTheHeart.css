@@ -159,7 +159,7 @@ span {
 
     }
     select{
-        width:200px;
+        width:250px;
     }
 }
 
@@ -238,7 +238,7 @@ select{
     color: #26aae1;
     background-color: white;
     border: black 2px solid;
-    width:165px;
+    width:175px;
     margin: 5px;
     padding-top: 2px;
     padding-bottom: 2px;

@@ -43,16 +43,16 @@ function buildArrays(entries){
 
     // project filters
     projectOne = entries.filter(entries => {
-        return entries.selfieId[0]==="A";
-    });
-    projectTwo = entries.filter(entries => {
-        return entries.selfieId[0]==="M";
-    });
-    projectThree = entries.filter(entries => {
         return entries.selfieId[0]==="C";
     });
+    projectTwo = entries.filter(entries => {
+        return entries.selfieId[0]==="A";
+    });
+    projectThree = entries.filter(entries => {
+        return entries.selfieId[0]==="M";
+    });
     projectFour = entries.filter(entries => {
-        return entries.selfieId[0]==="D";
+        return entries.selfieId[0]==="S";
     });
     // date filters
     friday = entries.filter(entries => {
@@ -62,7 +62,7 @@ function buildArrays(entries){
         return entries.dateTaken[9]==="5";
     });
     sunday = entries.filter(entries => {
-        return entries.dateTaken[9]==="8";
+        return entries.dateTaken[9]==="6";
     });
 }
 
